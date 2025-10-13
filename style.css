@@ -1,0 +1,472 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&family=Orbitron:wght@500;700&display=swap');
+
+:root {
+    /* Palet Warna Ghibli-Futuristik (dengan sedikit tweak untuk glow) */
+    --primary-color: #2c3e50; /* Deep Midnight Blue */
+    --secondary-color: #ffcc00; /* Radiant Gold Sparkle */
+    --accent-color: #a8dadc; /* Ethereal Cyan Glow */
+    --background-color: #ecf0f1; /* Light Cloud Base */
+    --card-bg: #ffffff;
+    --text-dark: #2c3e50;
+    --glow-effect: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color); /* Efek Cahaya */
+    --shadow-heavy: 0 10px 30px rgba(0, 0, 0, 0.35);
+    --shadow-soft: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--background-color);
+    overflow-x: hidden; /* Mencegah scroll horizontal */
+}
+
+.sky-container {
+    background: linear-gradient(to bottom right, #f8f9fa 0%, var(--background-color) 100%);
+    min-height: 100vh;
+    position: relative; /* Untuk elemen latar belakang */
+    overflow: hidden;
+}
+
+/* --- Efek Langit Ghibli --- */
+.sky-container::before {
+    content: '';
+    position: absolute;
+    top: -50px; left: -50px; right: -50px; bottom: -50px;
+    background: url('https://www.transparenttextures.com/patterns/clean-textile.png'); /* Pola Awan Halus */
+    opacity: 0.1;
+    z-index: -1;
+    animation: backgroundMove 60s linear infinite;
+}
+@keyframes backgroundMove {
+    from { background-position: 0 0; }
+    to { background-position: 1000px 1000px; }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1; /* Pastikan konten di atas latar belakang */
+}
+.clean-list { list-style: none; padding-left: 0; }
+.separator { 
+    border-top: 2px dashed var(--accent-color); 
+    margin: 40px 0; 
+    opacity: 0.7;
+}
+
+/* --- HEADER & PROFILE CARD --- */
+.hero {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #1e2a38 100%); /* Gradasi gelap */
+    color: white;
+    padding: 80px 20px 40px;
+    text-align: center;
+    border-bottom-left-radius: 50% 10%; 
+    border-bottom-right-radius: 50% 10%;
+    box-shadow: var(--shadow-heavy);
+    position: relative;
+    overflow: hidden;
+}
+.hero::before { /* Efek partikel/bintang di header */
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('https://www.transparenttextures.com/patterns/dark-fish-skin.png'); /* Contoh pola dot */
+    opacity: 0.05;
+    z-index: 0;
+}
+.profile-card { position: relative; z-index: 1; } /* Pastikan teks di atas efek */
+.profile-photo { 
+    width: 140px; height: 140px; 
+    object-fit: cover; 
+    border-radius: 50%; 
+    border: 5px solid var(--secondary-color); 
+    box-shadow: var(--glow-effect); /* Glow */
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bounce effect */
+}
+.profile-photo:hover { transform: rotate(8deg) scale(1.15); } 
+.hero h1 { 
+    font-family: 'Orbitron', sans-serif; /* Font Futuristik */
+    font-size: 3.2em; font-weight: 700; 
+    text-shadow: 0 0 10px var(--accent-color); 
+    margin-bottom: 5px;
+}
+.hero h2 { 
+    font-weight: 500; color: var(--accent-color); 
+    margin-bottom: 30px; 
+    letter-spacing: 1px;
+}
+.objective-text { opacity: 0.9; max-width: 80%; margin: 15px auto 30px; font-style: italic; }
+.social-link { 
+    background-color: var(--secondary-color); 
+    color: var(--primary-color); 
+    padding: 8px 20px; 
+    border-radius: 25px;
+    font-weight: 700;
+    transition: all 0.3s ease-out;
+}
+.social-link:hover { 
+    background-color: #ffd633; 
+    box-shadow: var(--glow-effect);
+}
+
+/* --- TAB NAVIGATION (Control Panel) --- */
+.tab-menu { 
+    margin-top: -40px; 
+    justify-content: center;
+    gap: 15px; /* Spasi antar tombol */
+    display: flex; 
+    flex-wrap: wrap; /* Pastikan responsif */
+    position: relative;
+    z-index: 10; /* Pastikan di atas konten lain */
+}
+.tab-button {
+    padding: 15px 25px;
+    border: 2px solid var(--accent-color); /* Border glow */
+    background-color: #f0f8ff; /* Warna dasar tab */
+    color: var(--primary-color);
+    font-family: 'Orbitron', sans-serif; /* Font Futuristik */
+    font-weight: 700;
+    border-radius: 12px; 
+    transition: all 0.3s ease-in-out;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.tab-button:hover { 
+    background-color: var(--accent-color); 
+    color: white;
+    transform: translateY(-8px) scale(1.05); /* Hovering dan sedikit membesar */
+    box-shadow: var(--glow-effect);
+}
+.tab-button.active {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    box-shadow: var(--glow-effect);
+    transform: translateY(-4px) scale(1.02);
+    border: 2px solid var(--secondary-color);
+    position: relative;
+}
+.tab-button.active::before { /* Efek highlight di bawah active tab */
+    content: '';
+    position: absolute;
+    bottom: -5px; left: 10%; right: 10%;
+    height: 3px;
+    background: var(--secondary-color);
+    box-shadow: var(--glow-effect);
+    border-radius: 5px;
+}
+.tab-button i { font-size: 1.2em; color: var(--secondary-color); transition: color 0.3s; }
+.tab-button.active i { color: var(--accent-color); } /* Ikon berubah saat aktif */
+
+/* --- TAB CONTENT (The Core Data) --- */
+.tab-content {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 20px; /* Lebih halus */
+    box-shadow: var(--shadow-heavy);
+    margin-top: 30px;
+    border: 1px solid var(--accent-color);
+    display: none; 
+    animation: fadeIn 0.8s ease-out; /* Animasi fade-in */
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.tab-content.active { display: block; }
+
+.tab-content h2 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--primary-color);
+    border-bottom: 3px dashed var(--secondary-color);
+    padding-bottom: 18px;
+    margin-bottom: 40px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.tab-content h2::before { /* Efek garis bawah judul */
+    content: '';
+    position: absolute;
+    bottom: -5px; left: 0; width: 60px; height: 5px;
+    background: var(--accent-color);
+    border-radius: 5px;
+    box-shadow: var(--glow-effect);
+}
+.tab-content h2 i { font-size: 1.5em; color: var(--secondary-color); }
+.subsection-title {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--accent-color);
+    margin-top: 35px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-left: 5px solid var(--secondary-color);
+    padding-left: 15px;
+}
+
+/* Highlight Grid */
+.highlight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+.highlight-item {
+    background-color: #f7fcfb;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid var(--accent-color);
+    box-shadow: var(--shadow-soft);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 500;
+}
+.highlight-item:hover { 
+    transform: translateY(-8px) scale(1.03); 
+    box-shadow: var(--glow-effect);
+}
+.highlight-item i { 
+    font-size: 1.8em; 
+    color: var(--secondary-color); 
+    text-shadow: 0 0 5px var(--secondary-color);
+}
+.highlight-item strong { color: var(--primary-color); font-weight: 700; }
+
+/* Score Table */
+.score-table {
+    background-color: var(--accent-color); 
+    color: var(--text-dark);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: var(--shadow-soft);
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 2fr;
+    gap: 18px 30px;
+    font-weight: 500;
+    border: 1px solid var(--primary-color);
+}
+.score-table div:nth-child(-n+3) { 
+    font-weight: 700;
+    color: white; 
+    text-shadow: 1px 1px #2c3e50;
+    border-bottom: 2px solid white;
+    padding-bottom: 10px;
+    font-family: 'Orbitron', sans-serif;
+}
+.score-table strong { color: var(--primary-color); }
+
+/* Awards and Education List Styling */
+.education-list li {
+    padding: 12px 0;
+    border-bottom: 1px dotted var(--accent-color);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.education-list li i { color: var(--secondary-color); font-size: 1.1em; }
+
+.award-list li {
+    margin-bottom: 15px;
+    background-color: #f0f8ff; /* Awan Ghibli */
+    padding: 15px 20px;
+    border-left: 5px solid var(--secondary-color);
+    border-radius: 8px;
+    font-weight: 500;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.award-list li:hover { transform: translateX(10px); }
+.award-list li i { font-size: 1.2em; color: var(--primary-color); margin-right: 15px; } /* Ikon di award list */
+
+/* Skills Grid */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+.skill-category h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--primary-color);
+    border-left: 5px solid var(--secondary-color);
+    padding-left: 15px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+.skill-category li {
+    background-color: #f0f8ff; 
+    border-left: 3px solid var(--accent-color);
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.08);
+}
+.skill-category li:hover { 
+    transform: translateX(8px); 
+    box-shadow: 0 0 10px var(--accent-color);
+}
+
+/* Styling untuk Certificate Links */
+.cert-link {
+    font-size: 0.85em;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 700;
+    padding: 6px 12px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 20px; /* Lebih bulat */
+    background-color: #fffde7;
+    transition: all 0.2s ease-out;
+    display: inline-flex; /* Agar ikon dan teks sejajar */
+    align-items: center;
+    gap: 5px;
+}
+.cert-link:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    box-shadow: var(--glow-effect);
+}
+
+/* Styling untuk item list tanpa link */
+.award-list li:not(:has(.cert-link)), .skill-category li:not(:has(.cert-link)), .certificate-list li:not(:has(.cert-link)) {
+    justify-content: flex-start;
+}
+
+/* Certificate Thumbnail (khusus Anuva & Dedikasi) */
+.cert-thumbnail {
+    width: 80px; /* Ukuran thumbnail */
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid var(--secondary-color);
+    box-shadow: var(--shadow-soft);
+    margin-left: 20px; /* Jarak dari teks */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer; /* Menandakan bisa diklik */
+}
+.cert-thumbnail:hover {
+    transform: scale(1.1);
+    box-shadow: var(--glow-effect);
+}
+/* Mengatur tampilan link + gambar di timeline */
+.timeline-item p .cert-link { 
+    margin-top: 10px; 
+    display: inline-block; /* Agar link dan gambar bisa berdampingan/diatur */
+}
+.timeline-item p .cert-thumbnail {
+    vertical-align: middle; /* Sejajarkan gambar dengan teks/link */
+    margin-left: 10px; /* Jarak dengan link */
+}
+
+
+/* Timeline (Experience) */
+.timeline { 
+    border-left: 3px solid var(--secondary-color); 
+    padding-left: 30px; 
+    position: relative;
+}
+.timeline-item { 
+    margin-bottom: 35px; 
+    position: relative; 
+    padding-bottom: 10px;
+    border-bottom: 1px dotted var(--accent-color);
+}
+.timeline-item:last-child { border-bottom: none; }
+.timeline-item::before {
+    content: '\f02d'; /* Ikon scroll/document */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    left: -42px; /* Posisi relatif ke border kiri */
+    top: 0;
+    font-size: 1.5em;
+    color: var(--accent-color);
+    background-color: var(--card-bg);
+    border: 3px solid var(--secondary-color);
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: var(--glow-effect);
+    line-height: 1; /* Agar ikon tidak terlalu tinggi */
+}
+.timeline-item h3 { font-weight: 700; color: var(--primary-color); font-size: 1.3em; margin-bottom: 5px; }
+.timeline-item .year { font-weight: 500; color: #666; display: block; font-size: 0.9em; margin-bottom: 10px; }
+
+
+/* --- FOOTER --- */
+footer {
+    text-align: center;
+    padding: 25px;
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    font-size: 0.95em;
+    margin-top: 60px;
+    border-top: 3px solid var(--secondary-color);
+    box-shadow: var(--shadow-heavy);
+}
+
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 992px) {
+    .hero h1 { font-size: 2.8em; }
+    .tab-button { padding: 12px 20px; font-size: 0.9em; gap: 8px; }
+    .tab-content h2 { font-size: 1.8em; gap: 10px; }
+}
+
+@media (max-width: 768px) {
+    .hero { padding: 50px 10px 20px; }
+    .hero h1 { font-size: 2em; }
+    .hero h2 { font-size: 0.9em; }
+    .contact-info span, .contact-info a { display: block; margin: 8px 0; }
+    .tab-menu { flex-direction: column; gap: 10px; margin-top: -20px; }
+    .tab-button { width: 90%; margin: auto; }
+    .tab-content { padding: 25px; }
+    .tab-content h2 { font-size: 1.5em; flex-direction: column; text-align: center; gap: 5px; }
+    .tab-content h2::before { left: 50%; transform: translateX(-50%); }
+
+    .highlight-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; gap: 20px; }
+    
+    .score-table { grid-template-columns: 1fr 1fr; gap: 10px; } 
+    .score-table div:nth-child(3n+3) { display: none; } 
+    .score-table div:nth-child(3) { display: none; }
+
+    .award-list li, .skill-category li, .certificate-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+    .cert-link { margin-top: 10px; align-self: flex-end; }
+    .cert-thumbnail { margin-top: 10px; margin-left: 0; align-self: center; }
+
+    .timeline { padding-left: 20px; }
+    .timeline-item::before { left: -30px; font-size: 1.3em; padding: 3px; }
+}
+
+@media (max-width: 480px) {
+    .hero h1 { font-size: 1.8em; }
+    .objective-text { font-size: 0.9em; }
+    .tab-button { padding: 10px 15px; font-size: 0.85em; }
+}
